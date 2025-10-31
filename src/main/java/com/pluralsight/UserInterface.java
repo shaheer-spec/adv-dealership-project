@@ -1,5 +1,6 @@
 package com.pluralsight;
 
+import java.time.Year;
 import java.util.List;
 import java.util.Scanner;
 
@@ -26,6 +27,7 @@ public class UserInterface {
             System.out.println("7. Get all vehicles");
             System.out.println("8. Add vehicle");
             System.out.println("9. Remove vehicle");
+            System.out.println("10. Sell or Lease Vehicle");
             System.out.println("99. Quit");
 
             System.out.print("Enter your choice: ");
@@ -58,6 +60,9 @@ public class UserInterface {
                     break;
                 case "9":
                     processRemoveVehicleRequest();
+                    break;
+                case "10":
+                    vehicleContract();
                     break;
                 case "99":
                     quit = true;
@@ -192,5 +197,54 @@ public class UserInterface {
         for (Vehicle vehicle : vehicles) {
             System.out.println(vehicle.toString());
         }
+    }
+
+    private void vehicleContract(){
+        System.out.print("Enter the Vin: ");
+        int vin = scanner.nextInt();
+        scanner.nextLine();
+
+        Vehicle vehicle2 = null;
+        for (Vehicle vehicle : dealership.getAllVehicles()) {
+            if (vehicle.getVin() == vin){
+                vehicle2 = vehicle;
+            } else {
+                System.out.println("Vin not matched");
+            }
+        }
+
+        System.out.print("Enter date: (YYYY-MM-DD)");
+        String date = scanner.nextLine();
+        System.out.print("Enter name: ");
+        String name = scanner.nextLine();
+        System.out.print("Enter email: ");
+        String email = scanner.nextLine();
+        System.out.print("Is this a Sale(1) or a Lease(2): ");
+        int userInput = scanner.nextInt();
+        scanner.nextLine();
+
+        Contract contract = null;
+        if (userInput == 1){
+            System.out.println("1. Finance/ 2. No Finance");
+            int userInput2 = scanner.nextInt();
+            boolean financeOption = userInput2 == 1;
+            contract = new SalesContract(date, name, email, vehicle2, financeOption);
+        } else if (userInput == 2) {
+            int currentYear = Year.now().getValue();
+            if ((currentYear - vehicle2.getYear()) > 3){
+                System.out.println("You cannot lease a vehicle over 3 years old");
+                return;
+            }
+            contract = new LeaseContract(date, name, email, vehicle2);
+        }
+
+        ContractDataManager contractDataManager = new ContractDataManager();
+        contractDataManager.saveContract(contract);
+
+        dealership.removeVehicle(vehicle2);
+
+        DealershipFileManager dealershipFileManager = new DealershipFileManager();
+        dealershipFileManager.saveDealership(dealership);
+
     }
 }
