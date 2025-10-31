@@ -35,14 +35,13 @@ public class ContractDataManager {
                 bufferedWriter.write("LEASE" + "|" + contract.getDate() + "|" + contract.getCustomerName() + "|" + contract.getCustomerEmail() + "|"
                         + contract.getVehicleSold().getVin() + "|" + contract.getVehicleSold().getYear() + "|" + contract.getVehicleSold().getMake()
                         + "|" + contract.getVehicleSold().getModel() + "|" + contract.getVehicleSold().getVehicleType() + "|" + contract.getVehicleSold().getColor()
-                        + "|" + contract.getVehicleSold().getOdometer() + "|" + contract.getVehicleSold().getPrice() + "|"
-                        + ((LeaseContract) contract).getExpectedEndingValue() + "|" + ((LeaseContract) contract).getLeaseFee() + "|"
-                        + contract.getTotalPrice() + "|" + contract.getTotalPrice() + "|" + contract.getMonthlyPayment()
+                        + "|" + contract.getVehicleSold().getOdometer() + "|" + contract.getVehicleSold().getPrice() + "|" + ((LeaseContract) contract).getExpectedEndingValue()
+                        + "|" + ((LeaseContract) contract).getLeaseFee() + "|" + "|" + contract.getMonthlyPayment()
                 );
                 bufferedWriter.newLine();
             }
             System.out.println("Done");
-
+            bufferedWriter.close();
 
         }catch (Exception ex){
             System.err.println("Error in ContractDataManager...");

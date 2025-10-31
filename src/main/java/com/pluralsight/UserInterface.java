@@ -204,14 +204,7 @@ public class UserInterface {
         int vin = scanner.nextInt();
         scanner.nextLine();
 
-        Vehicle vehicle2 = null;
-        for (Vehicle vehicle : dealership.getAllVehicles()) {
-            if (vehicle.getVin() == vin){
-                vehicle2 = vehicle;
-            } else {
-                System.out.println("Vin not matched");
-            }
-        }
+        Vehicle vehicle2 = dealership.getVehicleByVin(vin);
 
         System.out.print("Enter date: (YYYY-MM-DD)");
         String date = scanner.nextLine();
@@ -227,6 +220,7 @@ public class UserInterface {
         if (userInput == 1){
             System.out.println("1. Finance/ 2. No Finance");
             int userInput2 = scanner.nextInt();
+            scanner.nextLine();
             boolean financeOption = userInput2 == 1;
             contract = new SalesContract(date, name, email, vehicle2, financeOption);
         } else if (userInput == 2) {
