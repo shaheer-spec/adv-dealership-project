@@ -231,6 +231,7 @@ public class UserInterface {
             contract = new SalesContract(date, name, email, vehicle2, financeOption);
         } else if (userInput == 2) {
             int currentYear = Year.now().getValue();
+            assert vehicle2 != null;
             if ((currentYear - vehicle2.getYear()) > 3){
                 System.out.println("You cannot lease a vehicle over 3 years old");
                 return;
