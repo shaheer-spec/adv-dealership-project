@@ -218,7 +218,7 @@ public class UserInterface {
 
         Contract contract = null;
         if (userInput == 1){
-            System.out.println("1. Finance/ 2. No Finance");
+            System.out.print("1. Finance/ 2. No Finance: ");
             int userInput2 = scanner.nextInt();
             scanner.nextLine();
             boolean financeOption = userInput2 == 1;

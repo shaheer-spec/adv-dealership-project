@@ -20,14 +20,14 @@ public class ContractDataManager {
             String financeOption = "";
             if (contract instanceof SalesContract){
                 if (((SalesContract)contract).isFinanceOption()){
-                    financeOption = "Yes";
+                    financeOption = "YES";
                 } else if (!((SalesContract)contract).isFinanceOption()) {
-                    financeOption = "No";
+                    financeOption = "NO";
                 }
                 bufferedWriter.write("SALES" + "|" + contract.getDate() + "|" + contract.getCustomerName() + "|" + contract.getCustomerEmail() + "|" + vehicle.getVin() + "|" +
                         vehicle.getYear() + "|" + vehicle.getMake() + "|" + vehicle.getModel() + "|" + vehicle.getVehicleType() + "|" + vehicle.getColor() + "|" + vehicle.getOdometer()
                         + "|" + vehicle.getPrice() + "|" + (((SalesContract) contract).getSalesTaxAmount()) + "|" + ((SalesContract) contract).getRecordingFee() + "|"
-                        + ((SalesContract) contract).getProcessingFee() + "|" + contract.getTotalPrice() + "|" + ((SalesContract) contract).isFinanceOption() + "|"
+                        + ((SalesContract) contract).getProcessingFee() + "|" + contract.getTotalPrice() + "|" + financeOption + "|"
                         + contract.getMonthlyPayment()
                         );
                 bufferedWriter.newLine();
@@ -36,11 +36,10 @@ public class ContractDataManager {
                         + contract.getVehicleSold().getVin() + "|" + contract.getVehicleSold().getYear() + "|" + contract.getVehicleSold().getMake()
                         + "|" + contract.getVehicleSold().getModel() + "|" + contract.getVehicleSold().getVehicleType() + "|" + contract.getVehicleSold().getColor()
                         + "|" + contract.getVehicleSold().getOdometer() + "|" + contract.getVehicleSold().getPrice() + "|" + ((LeaseContract) contract).getExpectedEndingValue()
-                        + "|" + ((LeaseContract) contract).getLeaseFee() + "|" + "|" + contract.getMonthlyPayment()
+                        + "|" + ((LeaseContract) contract).getLeaseFee() + "|" + contract.getMonthlyPayment()
                 );
                 bufferedWriter.newLine();
             }
-            System.out.println("Done");
             bufferedWriter.close();
 
         }catch (Exception ex){
